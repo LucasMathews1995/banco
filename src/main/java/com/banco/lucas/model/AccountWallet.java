@@ -3,9 +3,13 @@ package com.banco.lucas.model;
 
 import java.util.List;
 
+import lombok.Getter;
+
 
 public class AccountWallet extends Wallet {
 
+  
+@Getter
 private final List<String> pix;    
 
 
