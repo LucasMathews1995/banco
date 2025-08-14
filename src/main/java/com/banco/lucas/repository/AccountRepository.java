@@ -1,8 +1,9 @@
 package com.banco.lucas.repository;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
 import com.banco.lucas.exception.AccountNotFoundException;
+import com.banco.lucas.exception.PixInUseException;
 import com.banco.lucas.model.AccountWallet;
 import com.banco.lucas.model.BankService;
 
@@ -15,16 +16,18 @@ public class AccountRepository {
 private List<AccountWallet> accounts;
 
 public AccountWallet create(final List<String> pix , final long initialFunds){
+    var pixInUse=    accounts.stream().flatMap(a -> a.getPix().stream()).toList();
+        for(String p : pix){
+           if(pixInUse.contains(p)) {
+            throw new PixInUseException("'O pix'"+ p +"'já está em uso'");
+           }
+        }
 
-    if(initialFunds>0 && verifyAccounts(pix)){
         var newAccount = new AccountWallet(initialFunds,pix); 
         
         accounts.add(newAccount);
         return newAccount;
-    }else{
-
-    return null;
-    }
+  
 }
 
 public AccountWallet findByPix(final String pix){
@@ -59,17 +62,9 @@ public void transferMoney(final String sourcePix, final String targetPix,final l
 private List<AccountWallet> list(){
     return this.accounts;
 }
-private boolean verifyAccounts(final List<String> pix){
 
-   List<String> pixFound =  accounts.stream().flatMap(x-> x.getPix().stream()).filter(p-> p.equals(pix)).collect(Collectors.toList());   
-    if(pixFound.isEmpty()){
-        
-        return true;
-    }else {
-        return false;
-    }
 
-}
+
 
 
 
