@@ -59,7 +59,7 @@ public void transferMoney(final String sourcePix, final String targetPix,final l
 
 
 
-private List<AccountWallet> list(){
+public List<AccountWallet> list(){
     return this.accounts;
 }
 

@@ -26,12 +26,12 @@ public class InvestmentRepository {
             return this.wallets;
     }
 
-    public void updateAmount (final long percent){
-        wallets.forEach(w-> w.updateAmount(percent));
+    public void updateAmount (){
+        wallets.forEach(w-> w.updateAmount(w.getInvestment().tax()));
     }
 
 
-    public Investment create (final long tax , final long daysToRescue,final long initialFunds){
+    public Investment create (final long tax ,final long initialFunds){
         this.nextId++;
 var investment = new Investment(this.nextId,tax,initialFunds);
 investments.add(investment);
