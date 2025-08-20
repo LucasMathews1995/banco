@@ -11,7 +11,7 @@ import com.banco.lucas.model.Investment;
 import com.banco.lucas.model.InvestmentWallet;
 
 public class InvestmentRepository {
-        private long nextId;
+        private long nextId=0;
     private List<Investment> investments = new ArrayList<>();
 
     private List<InvestmentWallet> wallets = new ArrayList<>();
@@ -32,6 +32,7 @@ public class InvestmentRepository {
 
 
     public Investment create (final long tax ,final long initialFunds){
+        
         this.nextId++;
 var investment = new Investment(this.nextId,tax,initialFunds);
 investments.add(investment);
@@ -39,9 +40,9 @@ return investment;
 
 
     }
-
+    
     public InvestmentWallet iniInvestmentWallet(final AccountWallet account , final long id){
-
+        if(!wallets.isEmpty()){
         var accountInUse = wallets.stream().map(InvestmentWallet::getAccount).toList();
 
 
@@ -49,17 +50,18 @@ return investment;
                 throw new AccountWalletException("'A carteira de investimento'" + account + "'já possui investimento'");
             
         }
-
+    }
         var investment = findById(id);
        CommonsRepository.checkFundsForTransaction(account, investment.initialFunds());
-
+    
        var wallet = new InvestmentWallet(investment, account, investment.initialFunds());
 
        wallets.add(wallet);
-       return wallet;
+       
+return wallet;
 
-
-    }
+    
+}
 
 
     public InvestmentWallet deposit(final String pix , final long funds){

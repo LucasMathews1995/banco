@@ -25,7 +25,7 @@ public Wallet(BankService service) {
 protected List<Money> generateMoney(final long amount,final String description){
 var history = new MoneyAudit(UUID.randomUUID(),service,description,OffsetDateTime.now());
 return Stream.generate(()-> new Money(history)).limit(amount).toList();
-}
+} 
 
 public long getFunds (){
     return money.size();

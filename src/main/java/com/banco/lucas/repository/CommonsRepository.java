@@ -9,7 +9,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import com.banco.lucas.exception.NoFundsEnoughException;
-import com.banco.lucas.model.AccountWallet;
+
 import com.banco.lucas.model.BankService;
 import com.banco.lucas.model.Money;
 import com.banco.lucas.model.MoneyAudit;

@@ -4,8 +4,9 @@ package com.banco.lucas.model;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.ToString;
 
-
+@ToString
 public class AccountWallet extends Wallet {
 
   
@@ -31,4 +32,5 @@ private final List<String> pix;
 
         this.money.addAll(money);
     }
+    
 }
